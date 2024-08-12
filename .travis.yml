@@ -1,0 +1,14 @@
+# name start with .
+# This file tell travis what to do
+sudo: required
+# require docker
+services:
+  - docker
+
+# cmd to run 
+before_install:
+  - docker build -t superiormon187/docker-react -f Dockerfile.dev .
+
+script:
+  # Docker container with the CI environment variable set to true
+  - docker run -e CI=true superiormon187/docker-react npm run test
