@@ -1,0 +1,7 @@
+use 2 docker files to build for dev and for prod
+
+# to build this file use: [specify which file to use, otehr wise default Dockerfile]
+# docker build -f Dockerfile.dev .
+
+Here the node_modules folder is auto created when we use npm to create project, but actucally we dont, so we can safely delete
+need this folder in that we will do the download in docker filesystem. So this local folder (150mb this case) wiill cost extra time when copy from local to docker fs.
