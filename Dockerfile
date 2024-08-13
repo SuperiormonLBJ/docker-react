@@ -11,6 +11,9 @@ RUN npm run build
 FROM nginx
 # copy from 1st step and then take copied build arti/codes.... into nginx path
 # type would cuase failure to reflect our application on localhost port
+# **** expose is for elastic beanstalk to find which port to map with on docker fs ***
+# elastic beanstalk can only look for Dockerfile
+EXPOSE 80  
 COPY --from=builder /app/build /usr/share/nginx/html
 # nginx will take care of start cmd automatically so no need to specify
 
