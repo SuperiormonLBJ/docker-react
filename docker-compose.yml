@@ -1,30 +1,10 @@
-# just need to to run "docker compose up"
-# This is used to reduce work to run dokcker run -v -t -f.......
+# This new Amazon Linux platforms will conflict with the project we have built since 
+#it will look for a docker.compose.yml file to build from by default instead of a Dockerfile.
 version: '3'
 services:
-  # 1 st container
-  # tag as below name
-  react-web-section6:
-    # only look for default dockerfile 
-    # build: .
-    # -f Dockerfile.dev
-    build: 
-      context: . #current dir
-      dockerfile: Dockerfile.dev
-    # -p 3000:3000
-    ports: 
-      - "3000:3000"
-    # -v /app/node_modules -v $(pwd):/app
-    volumes:
-      - /app/node_modules
-      - .:/app
-  # 2nd container just to run the test
-  tests:
-    build: 
+  web:
+    build:
       context: .
-      dockerfile: Dockerfile.dev
-    # -v /app/node_modules -v $(pwd):/app
-    volumes:
-      - /app/node_modules
-      - .:/app
-    command: ["npm","run","test"]
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'

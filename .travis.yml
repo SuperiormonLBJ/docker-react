@@ -1,9 +1,24 @@
 sudo: required
+# require docker to be installed, then travis will provide vm with dokcer
 services:
   - docker
-
+# to build image first
 before_install:
   - docker build -t superiormon187/docker-react -f Dockerfile.dev .
 
 script:
   - docker run -e CI=true superiormon187/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk # pre-defined option in travis 
+  region: "ap-southeast-1" # get from the domain url of beanstalk application
+  application: "frontend" # app name of beanstalk 
+  env: "Frontend-env" # env of beanstalk 
+  bucket_name: "elasticbeanstalk-ap-southeast-1-119828353856" # this is auto created with elastic beanstalk
+  bucket_path: "docker" # path folder to store the prod zipped files
+  on:
+    branch: master # only deploy on master branch
+  # this is from user with admin access to the created elastic beanstalk resource
+  # can not out directly in this public file, we need to define in travis env variable instead
+  access_key_id: $AWS_ACCESS_KEY # credential to get access to the above resources
+  secret_access_key: "$AWS_SECRET_KEY"
