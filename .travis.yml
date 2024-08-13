@@ -12,7 +12,7 @@ script:
 deploy:
   provider: elasticbeanstalk # pre-defined option in travis 
   region: "ap-southeast-1" # get from the domain url of beanstalk application
-  application: "frontend" # app name of beanstalk 
+  app: "frontend" # app name of beanstalk 
   env: "Frontend-env" # env of beanstalk 
   bucket_name: "elasticbeanstalk-ap-southeast-1-119828353856" # this is auto created with elastic beanstalk
   bucket_path: "docker" # path folder to store the prod zipped files
